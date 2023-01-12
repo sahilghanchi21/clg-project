@@ -9,6 +9,7 @@ function prx($arr){
 	print_r($arr);
 	die();
 }
+
 function get_safe_value($con,$str){
 	if($str!=''){
 		$str=trim($str);
@@ -16,22 +17,20 @@ function get_safe_value($con,$str){
 	}
 }
 
-function get_product($con,$limit='',$cat_id='',$type='',$product_id=''){
+function get_product($con,$limit='',$cat_id='',$product_id=''){
 	$sql="select product.*,categories.categories from product,categories where product.status=1 ";
 	if($cat_id!=''){
 		$sql.=" and product.categories_id=$cat_id ";
 	}
-	
 	if($product_id!=''){
 		$sql.=" and product.id=$product_id ";
 	}
-	
 	$sql.=" and product.categories_id=categories.id ";
 	$sql.=" order by product.id desc";
 	if($limit!=''){
 		$sql.=" limit $limit";
 	}
-	echo $sql;
+	
 	$res=mysqli_query($con,$sql);
 	$data=array();
 	while($row=mysqli_fetch_assoc($res)){
